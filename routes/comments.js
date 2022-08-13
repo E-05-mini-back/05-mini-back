@@ -1,0 +1,109 @@
+const express = require("express");
+const router = express.Router();
+const authMiddleware = require("../middlewares/auth_middlewares");
+const { Comments, Users } = require("../models")
+
+// router.get("/", (req, res) => {
+//     ok : true,
+//     res.send("welcome to comment")
+// })
+
+//댓글 작성
+router.post("/:postId", authMiddleware, async (req, res) => {
+    const { userId } = res.locals.user
+    const { comment } = req.body
+    const { postId } = req.params
+    if (!userId) { //이미 미들웨어에서 걸러지기는함.
+        res.status(400).json({
+            ok: false,
+            errorMessage: "로그인을 해주세요."
+        })
+    } else if (!comment) {
+        res.status(400).json({
+            ok: false,
+            errorMessage: "댓글 내용을 입력해주세요."
+        })
+    } else {
+        Comments.create({ comment, postId, userId });
+        res.status(201).json({
+            ok: true,
+            message: "댓글을 생성하였습니다."
+        })
+    }
+})
+
+//댓글 조회
+router.get("/:postId", async (req, res) => {
+    const { postId } = req.params
+    const Comment = await Comments.findAll({
+        where: { postId: postId },
+        include: {
+            model: Users,
+            attributes: ["loginId"],
+        },
+        order: [
+            ["createdAt", "DESC"],
+        ],
+    })
+    res.status(200).json({
+        ok: true,
+        data: Comment.map((Comment) => ({
+            comment: Comment.comment,
+            loginId: Comment.loginId,
+            date: Comment.createdAt
+        }))
+    })
+})
+
+//댓글 수정
+router.put("/:commentId", authMiddleware, async (req, res) => {
+    const { userId } = res.locals.user
+    const { commentId } = req.params
+    const { comment } = req.body
+    const Comment = await Comments.findOne({ where: { commentId: commentId } })
+
+    if (!userId) { //이미 미들웨어에서 걸러지기는함.
+        res.status(400).json({
+            ok: false,
+            errorMessage: "로그인이 필요합니다."
+        })
+    } else if (userId !== Comment.userId) {
+        res.status(400).json({
+            ok: false,
+            errorMessage: "본인 댓글만 수정 가능합니다."
+        })
+    } else {
+        Comment.update({ comment: comment });
+        res.status(201).json({
+            ok: true,
+            message: "댓글이 수정 되었습니다."
+        })
+    }
+})
+
+//댓글 삭제
+router.delete("/:commentId", authMiddleware, async (req, res) => {
+    const { userId } = res.locals.user
+    const { commentId } = req.params;
+    const Comment = await Comments.findOne({ where: { commentId: commentId } })
+
+    if (!userId) { //미들웨어에서 먼저 걸러짐
+        res.status(400).json({
+            ok : false,
+            errorMessage: "로그인을 해주세요" })
+    } else if (userId !== Comment.userId) {
+        res.status(400).json({ 
+            ok : false,
+            errorMessage: "본인 댓글만 삭제 가능합니다." })
+    } else {
+        await Comment.destroy()
+        res.status(201).json({ 
+            ok : true,
+            message: "댓글을 삭제하였습니다." })
+    }
+
+})
+
+
+
+module.exports = router;

@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken')
-const { Member } = require("../models")
+const { Users } = require("../models")
 
 module.exports = (req, res, next) => {
     try{
-
         const { authorization } = req.headers;
         const [tokenType, tokenValue] = authorization.split(" ");
         // console.log(tokenValue)
@@ -15,8 +14,8 @@ module.exports = (req, res, next) => {
             return;
         }
         const { privatekey } = jwt.verify(tokenValue, "secret_key")
-        Member.findByPk(privatekey).then((member) => {
-            res.locals.user = member;
+        Users.findByPk(privatekey).then((userId) => {
+            res.locals.user = userId;
             next();
           });
         
