@@ -8,7 +8,7 @@ const likesRouter = require("./likes");
 
 router.use("/", usersRouter);
 router.use("/", likesRouter);
-router.use("/posts", postsRouter);
-router.use("/comments", commentsRouter);
+router.use("/post", postsRouter);
+router.use("/comment", commentsRouter);
 
 module.exports = router;
