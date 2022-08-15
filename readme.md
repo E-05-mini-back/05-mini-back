@@ -99,6 +99,12 @@ http://shshinkitec.shop/api/post (임시)
 
 ---
 
+# ERD 및 테이블 설계
+
+![uml 재료 5](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3a7fd165-b97c-4c7c-9376-f8d54b3bdc63/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T074329Z&X-Amz-Expires=86400&X-Amz-Signature=c62bf022230c05a50a8fbd4ef44cbd58d0c145280fb9b3f76590c2ce05313888&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+
+---
+
 # 💎BE 우리가 새롭게 도전한 기술들
 
 1. .env로 환경변수 설정해서 중요한 키값을 환경변수로 처리하여 다른사람이 보지못하게 구현.
@@ -115,7 +121,7 @@ http://shshinkitec.shop/api/post (임시)
 
 ---
 
-😥 BE: 개발하면서 어려웠던점
+# 😥 BE: 개발하면서 어려웠던점
 
 1. mysql를 사용함으로써 테이블의 생성 및 관계 설정
 
@@ -127,27 +133,21 @@ http://shshinkitec.shop/api/post (임시)
 
 ---
 
-🤟 Trouble Shooting
+# 🤟 Trouble Shooting
+
 (우리 팀이 해결한 문제 정리)
 
-1.  이미지 파일을 multer를 사용해서 구현은 했으나 FE분들이랑 상의를 통해 multer를 사용하지 않고, 파이어베이스에 먼저 사진을 저장하고 URL을 데이터 베이스에 저장하게 했습니다.
+1. migration을 이용하여 테이블 생성 및 관계설정  
+   => migrations으로 테이블을 생성하고, 관계설정을 해주는 새로움 migrations 파일을 만들어 관계를 설정해 주었음  
+   => 그 후 db에 접근하려면 model 파일에서 외래키를 설정해주어야 함
 
-2.  mysql을 auto increment를 사용하니 boardId 가 null값으로 나오는 부분에 대해 FE쪽에서 boardId를 필요로 해서 userCheck.boardId = userCheck['null']; userCheck에 대한 null 변수에 할당되어 있는 값을 boardId로 설정
+2. api 명세서 설계 부실  
+   => 프로젝트 기획시 와이어프레임을 기반으로 api작성했으나 세부적인 타입이나, 에러메세지 등 정의가 부족하여 api 명세서 세부적으로 보완 하여 FE와 공유 및 의논
 
-3.  로그인
+3. 사용자 인증(로그인 여부) 미들웨어 수정 및 보완  
+   => 게시물, 댓글 작성시 로그인이 안되면 에러메세지 반환
+   => 로그인 및 회원가입시 로그인이 되어있으면 에러메세지 반환  
+   => 로그인 및 회원가입에서만 사용 하는 미들웨어를 만들어 사용함
 
-3-1. passport를 이용하여 SNS(카카오톡)로그인 기능 구현을 했으나 FE와 상의 후 사용하지 않음.
-
-3-2 , FE 토큰 헤더가 Bearer로 서버로 전달하지 않음 => Bearer, token 을 split(''),으로 받지 않고 const { authorization } = req.headers; 받어서 FE로 response
-
-3-3 . FE 요청으로 로그인시 닉네임 넘겨달라는 부분 =>
-user (email.passwoerd)확인 완료시 token만발행 => Board, User 외래키를 잡아(1:n), attributes: ['nickname', 'password', 'userId', 'email'], where: { email } =>
-사용하여 유저 정보 넘겨 받은뒤에 user.nickname을 token과 같이 response
-
-3-4 . 암호화 : Bcrypt.hashSync(password, 10)  
-복호화 : Bcrypt.compareSync(password, user.password) => 비밀번호 암호화한 값과 복호화한 값이 일치하지 않는 오류 발생
-
-암호화 : const salt = await Bcrypt.genSalt();  
- const pwhash = await Bcrypt.hash(password, salt);
-
-복호화 : Bcrypt.compareSync(password, user.password) => 오류 해결
+4. FE와 이미지 파일을 주고 받을때 어디에 저장할지 의논  
+   => 처음에는 multer를 이용해서 서버에 저장 후 파일을 전달해 줄 생각이었지만, 서버에서 S3 서버에 파일을 저장하고, 해당 url을 서버 DB에 저장하여 필요시 url 값을 전달해주어 이미지 파일을 사용하기로 함
