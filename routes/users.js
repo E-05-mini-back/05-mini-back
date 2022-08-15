@@ -9,8 +9,8 @@ const { Op } = require("sequelize");
 require("dotenv").config();
 
 // 유효성 검사 틀
-const re_loginId = /^[a-zA-Z0-9]{3,10}$/;
-const re_password = /^[a-zA-Z0-9]{4,30}$/;
+const re_loginId = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
+const re_password = /^[A-Za-z0-9]{8,20}$/;
 
 const userSchema = Joi.object({
   loginId: Joi.string().pattern(re_loginId).required(),
@@ -18,14 +18,13 @@ const userSchema = Joi.object({
   confirm: Joi.string(),
 });
 
-function isRegexValidation(target, regex) {
-  return target.search(regex) !== -1;
-}
+// function isRegexValidation(target, regex) {
+//   return target.search(regex) !== -1;
+// }
 
 //회원가입 api
 router.post("/signup", loginmiddleware, async (req, res) => {
   try {
-    //닉네임의 시작과 끝이 a-zA-Z0-9글자로 3 ~ 10 단어로 구성되어야 한다.
     const { loginId, password, confirm } = await userSchema.validateAsync(
       req.body
     );
@@ -36,12 +35,12 @@ router.post("/signup", loginmiddleware, async (req, res) => {
         errorMessage: "패스워드가 일치하지 않습니다.",
       });
     }
-    if (isRegexValidation(password, loginId)) {
-      return res.status(412).json({
-        ok: false,
-        errorMessage: "패스워드에 아이디가 포함되어 있습니다.",
-      });
-    }
+    // if (isRegexValidation(password, loginId)) {
+    //   return res.status(412).json({
+    //     ok: false,
+    //     errorMessage: "패스워드에 아이디가 포함되어 있습니다.",
+    //   });
+    // }
     const user = await Users.findOne({
       //   attributes: ["userId"],
       where: { loginId },
