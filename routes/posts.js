@@ -5,7 +5,6 @@ const authMiddlewares = require("../middlewares/auth_middlewares");
 
 // 게시물 조회
 router.get("/", async (req, res) => {
-  // api명세서 /getpost 경로 수정 필요
   try {
     const datas = await Posts.findAll(
       {
@@ -34,7 +33,7 @@ router.get("/", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      message: "게시물 조회를 실패했습니다.",
+      errorMessage: "게시물 조회를 실패했습니다.",
     });
     return;
   }
@@ -47,7 +46,7 @@ router.post("/", authMiddlewares, async (req, res) => {
     if (!userId) {
       res.status(400).json({
         ok: false,
-        message: "로그인 후 사용 가능합니다.",
+        errorMessage: "로그인 후 사용 가능합니다.",
       });
       return;
     }
@@ -70,7 +69,7 @@ router.post("/", authMiddlewares, async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      message: "생성 실패",
+      errorMessage: "생성 실패",
     });
     return;
   }
@@ -92,7 +91,7 @@ router.get("/:postId", async (req, res) => {
     if (data === null) {
       res.status(400).json({
         ok: false,
-        message: "해당 게시물을 찾을 수 없습니다.",
+        errorMessage: "해당 게시물을 찾을 수 없습니다.",
       });
       return;
     } else {
@@ -113,7 +112,7 @@ router.get("/:postId", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      message: "상세 게시물 조회 실패",
+      errorMessage: "상세 게시물 조회 실패",
     });
     return;
   }
@@ -126,7 +125,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
     if (!userId) {
       res.status(400).json({
         ok: false,
-        message: "로그인 후 사용 가능합니다.",
+        errorMessage: "로그인 후 사용 가능합니다.",
       });
       return;
     }
@@ -140,7 +139,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
     if (data === null) {
       res.status(400).json({
         ok: false,
-        message: "해당 게시물을 찾을 수 없습니다.",
+        errorMessage: "해당 게시물을 찾을 수 없습니다.",
       });
       return;
     } else {
@@ -162,7 +161,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
       } else {
         res.status(400).json({
           ok: false,
-          message: "작성자가 일치 하지 않습니다.",
+          errorMessage: "작성자가 일치 하지 않습니다.",
         });
         return;
       }
@@ -170,7 +169,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      message: "수정 실패",
+      errorMessage: "수정 실패",
     });
     return;
   }
@@ -183,7 +182,7 @@ router.delete("/:postId", authMiddlewares, async (req, res) => {
     if (!userId) {
       res.status(400).json({
         ok: false,
-        message: "로그인 후 사용 가능합니다.",
+        errorMessage: "로그인 후 사용 가능합니다.",
       });
       return;
     }
@@ -211,7 +210,7 @@ router.delete("/:postId", authMiddlewares, async (req, res) => {
       } else {
         res.status(400).json({
           ok: false,
-          message: "작성자가 일치 하지 않습니다.",
+          errorMessage: "작성자가 일치 하지 않습니다.",
         });
         return;
       }
@@ -219,7 +218,7 @@ router.delete("/:postId", authMiddlewares, async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      message: "삭제 실패",
+      errorMessage: "삭제 실패",
     });
     return;
   }
