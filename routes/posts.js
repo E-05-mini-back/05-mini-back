@@ -43,13 +43,6 @@ router.get("/", async (req, res) => {
 router.post("/", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-    if (!userId) {
-      res.status(400).json({
-        ok: false,
-        errorMessage: "로그인 후 사용 가능합니다.",
-      });
-      return;
-    }
 
     const { title, images, category, content } = req.body;
 
@@ -129,13 +122,6 @@ router.get("/:postId", async (req, res) => {
 router.put("/:postId", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-    if (!userId) {
-      res.status(400).json({
-        ok: false,
-        errorMessage: "로그인 후 사용 가능합니다.",
-      });
-      return;
-    }
 
     const { postId } = req.params;
     const { title, images, content, category } = req.body;
@@ -195,13 +181,6 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
 router.delete("/:postId", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-    if (!userId) {
-      res.status(400).json({
-        ok: false,
-        errorMessage: "로그인 후 사용 가능합니다.",
-      });
-      return;
-    }
 
     const { postId } = req.params;
 
