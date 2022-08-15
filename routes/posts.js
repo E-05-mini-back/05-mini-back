@@ -53,6 +53,14 @@ router.post("/", authMiddlewares, async (req, res) => {
 
     const { title, images, category, content } = req.body;
 
+    if (title === "" || images === "" || category === "" || content === "") {
+      res.status(400).json({
+        ok: false,
+        errorMessage: "제목, 이미지, 카테고리, 내용을 채워주세요.",
+      });
+      return;
+    }
+
     await Posts.create({
       title,
       images,
@@ -132,6 +140,15 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
 
     const { postId } = req.params;
     const { title, images, content, category } = req.body;
+
+    if (title === "" || images === "" || category === "" || content === "") {
+      res.status(400).json({
+        ok: false,
+        errorMessage: "제목, 이미지, 카테고리, 내용을 채워주세요.",
+      });
+      return;
+    }
+
     const data = await Posts.findOne({
       where: { postId },
     });
