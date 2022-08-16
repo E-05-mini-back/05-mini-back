@@ -26,15 +26,7 @@ paths:
                       type: string
                     loginId:
                       type: string
-        401:
-          description: 이미 로그인 되어있음
-          schema:
-            properties:
-              ok:
-                type: boolean
-              errorMessage:
-                type: string
-        412:
+        400:
           description: 게시물 보여주기 실패
           schema:
             properties:
@@ -45,6 +37,8 @@ paths:
 
   /post:
     post:
+      # security:
+      #   - Authorization: []
       tags:
         - post
       description: 게시물 생성
@@ -87,3 +81,15 @@ paths:
                 type: boolean
               errorMessage:
                 type: string
+
+        # - in: header
+        #   name: token
+        #   description: 헤더에 토큰을 입력하세요
+        #   required: true
+        #   schema:
+        #     type: string
+        #   examples:
+        #     Sample:
+        #       value: example
+        #       summary: A sample token
+        #   style: simple
