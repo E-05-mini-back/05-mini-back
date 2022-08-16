@@ -1,8 +1,6 @@
 paths:
   /comment/{postId}:
     post:
-      # security:
-      #   - Authorization: []
       tags:
         - comment
       description: 해당 게시물의 댓글 생성
@@ -47,8 +45,6 @@ paths:
 
   /comment/{postId}/:
     get:
-      # security:
-      #   - Authorization: []
       tags:
         - comment
       description: 해당 게시물의 댓글 조회
@@ -87,8 +83,6 @@ paths:
 
   /comment/{commentId}:
     put:
-      # security:
-      #   - Authorization: []
       tags:
         - comment
       description: 해당 댓글 수정
@@ -133,8 +127,6 @@ paths:
 
   /comment/{commentId}/:
     delete:
-      # security:
-      #   - Authorization: []
       tags:
         - comment
       description: 해당 댓글 삭제

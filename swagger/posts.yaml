@@ -124,8 +124,6 @@ paths:
 
 /post/{postId}:
   put:
-    # security:
-    #   - Authorization: []
     tags:
       - post
     description: 게시물 수정
@@ -176,8 +174,6 @@ paths:
 
 /post/{postId}/:
   delete:
-    # security:
-    #   - Authorization: []
     tags:
       - post
     description: 게시물 삭제
