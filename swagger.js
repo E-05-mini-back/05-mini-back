@@ -6,9 +6,9 @@ const options = {
     components: {},
     // openapi: "3.0.3",
     info: {
-      title: "Test API",
+      title: "리뷸랭 API",
       version: "1.0.0",
-      description: "test api",
+      description: "리뷸랭 화이팅!",
     },
     // servers: [
     //   {
