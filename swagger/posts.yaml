@@ -1,0 +1,89 @@
+paths:
+  /post/:
+    get:
+      tags:
+        - post
+      description: 게시물 보여주기
+      responses:
+        201:
+          description: 게시물 보여주기
+          schema:
+            properties:
+              ok:
+                type: boolean
+              result:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    postId:
+                      type: integer
+                    title:
+                      type: string
+                    images:
+                      type: string
+                    category:
+                      type: string
+                    loginId:
+                      type: string
+        401:
+          description: 이미 로그인 되어있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        412:
+          description: 게시물 보여주기 실패
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+
+  /post:
+    post:
+      tags:
+        - post
+      description: 게시물 생성
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              title:
+                type: string
+              images:
+                type: string
+              category:
+                type: string
+              content:
+                type: string
+      responses:
+        200:
+          description: 게시물 생성 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              message:
+                type: string
+        401:
+          description: 로그인이 안되어 있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        400:
+          description: 유효성 검사 실패 / 게시물 생성 실패
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string

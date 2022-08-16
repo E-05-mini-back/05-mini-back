@@ -1,6 +1,8 @@
 const express = require("express");
 const Router = require("./routes/index");
 
+const { swaggerUi, specs } = require("./swagger");
+
 require("dotenv").config();
 const port = process.env.Port;
 
@@ -16,6 +18,8 @@ app.use(
 );
 
 app.use(express.json());
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use("/api", Router);
 app.get("/", (req, res) => {
