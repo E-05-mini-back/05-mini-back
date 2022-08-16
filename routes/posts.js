@@ -43,13 +43,6 @@ router.get("/", async (req, res) => {
 router.post("/", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-    if (!userId) {
-      res.status(400).json({
-        ok: false,
-        errorMessage: "로그인 후 사용 가능합니다.",
-      });
-      return;
-    }
 
     const { title, images, category, content } = req.body;
 
@@ -94,7 +87,6 @@ router.get("/:postId", async (req, res) => {
         attributes: ["loginId"],
       },
     });
-    console.log(data);
 
     if (data === null) {
       res.status(400).json({
@@ -130,13 +122,6 @@ router.get("/:postId", async (req, res) => {
 router.put("/:postId", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-    if (!userId) {
-      res.status(400).json({
-        ok: false,
-        errorMessage: "로그인 후 사용 가능합니다.",
-      });
-      return;
-    }
 
     const { postId } = req.params;
     const { title, images, content, category } = req.body;
@@ -196,13 +181,6 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
 router.delete("/:postId", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-    if (!userId) {
-      res.status(400).json({
-        ok: false,
-        errorMessage: "로그인 후 사용 가능합니다.",
-      });
-      return;
-    }
 
     const { postId } = req.params;
 
@@ -236,6 +214,40 @@ router.delete("/:postId", authMiddlewares, async (req, res) => {
     res.status(400).json({
       ok: false,
       errorMessage: "삭제 실패",
+    });
+    return;
+  }
+});
+
+// 게시물 카테고리별 조회
+router.get("/category/:category", async (req, res) => {
+  try {
+    const { category } = req.params;
+    const datas = await Posts.findAll({
+      where: { category },
+      include: {
+        model: Users,
+        attributes: ["loginId"],
+      },
+    });
+
+    res.status(200).json({
+      ok: true,
+      result: datas.map((e) => {
+        return {
+          postId: e.postId,
+          title: e.title,
+          images: e.images,
+          category: e.category,
+          loginId: e.User.loginId,
+        };
+      }),
+    });
+    return;
+  } catch (err) {
+    res.status(400).json({
+      ok: false,
+      errorMessage: "카테고리별 게시물 조회 실패",
     });
     return;
   }
