@@ -43,8 +43,8 @@ router.get("/", async (req, res) => {
 router.post("/", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
-
     const { title, images, category, content } = req.body;
+    
 
     if (title === "" || images === "" || category === "" || content === "") {
       res.status(400).json({

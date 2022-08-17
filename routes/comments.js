@@ -69,13 +69,7 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
   const Comment = await Comments.findOne({ where: { commentId: commentId } });
   console.log(Comment);
 
-  if (!userId) {
-    //이미 미들웨어에서 걸러지기는함.
-    res.status(400).json({
-      ok: false,
-      errorMessage: "로그인이 필요합니다.",
-    });
-  } else if (!comment) {
+  if (!comment) {
     res.status(400).json({
       ok: false,
       errorMessage: "댓글 내용을 입력해주세요.",
@@ -105,14 +99,7 @@ router.delete("/:commentId", authMiddleware, async (req, res) => {
   const { userId } = res.locals.user;
   const { commentId } = req.params;
   const Comment = await Comments.findOne({ where: { commentId: commentId } });
-
-  if (!userId) {
-    //미들웨어에서 먼저 걸러짐
-    res.status(400).json({
-      ok: false,
-      errorMessage: "로그인을 해주세요",
-    });
-  } else if (Comment == null) {
+  if (Comment == null) {
     res.status(400).json({
       ok: false,
       errorMessage: "존재하지 않는 댓글입니다.",
