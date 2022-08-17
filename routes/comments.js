@@ -34,6 +34,7 @@ router.post("/:postId", authMiddleware, async (req, res) => {
     res.status(201).json({
       ok: true,
       message: "댓글을 생성하였습니다.",
+      request: { postId, comment },
     });
   }
 });
@@ -100,6 +101,7 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
     res.status(201).json({
       ok: true,
       message: "댓글이 수정 되었습니다.",
+      request: { commentId, comment },
     });
   }
 });

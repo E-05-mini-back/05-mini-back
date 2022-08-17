@@ -65,6 +65,7 @@ router.post("/", authMiddlewares, async (req, res) => {
     res.status(200).json({
       ok: true,
       message: "생성 성공",
+      request: { title, images, category, content },
     });
     return;
   } catch (err) {
@@ -158,6 +159,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
         res.status(200).json({
           ok: true,
           message: "수정 성공",
+          request: { postId, title, images, content, category },
         });
         return;
       } else {
