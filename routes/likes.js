@@ -73,4 +73,25 @@ router.post("/:postId", authMiddlewares, async (req, res) => {
 //     }
 // });
 
+router.get("/", authMiddleware, async (req, res) =>{
+  const userId = user.userId;
+  const likeid  = await Like.findAll({where: { userId }})
+  const postId = await likeid.map((a)=>{ return a.postId })
+  const likepost = await Post.findAll({where :{ id: postId}})
+
+  res.json({
+      data : likepost.map((posts) =>({
+      postId : posts.id,
+      title : posts.title,
+      nickname : posts.nickname,
+      content : posts.content,
+      Like : posts.Like,
+      createdAt : posts.createdAt,
+      updatedAt : posts.updatedAt
+      })).sort((a, b) => b.Like - a.Like)
+  })
+
+ 
+})
+
 module.exports = router;
