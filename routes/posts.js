@@ -26,6 +26,7 @@ router.get("/", async (req, res) => {
           images: e.images,
           category: e.category,
           loginId: e.User.loginId,
+          likes: e.likes,
         };
       }),
     });
@@ -105,7 +106,7 @@ router.get("/:postId", async (req, res) => {
           category: data.category,
           loginId: data.loginId,
           content: data.content,
-          like: data.likes,
+          likes: data.likes,
         },
       });
       return;

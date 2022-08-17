@@ -20,7 +20,6 @@ module.exports = (req, res, next) => {
       console.log(privatekey)
       Users.findByPk(privatekey).then((userId) => {
         res.locals.user = userId;
-        console.log(res.locals)
         next();
       });
     } catch (err) {
@@ -33,7 +32,7 @@ module.exports = (req, res, next) => {
   } catch (error) {
     res.status(401).json({
       ok: false,
-      errorMessage: "로그인 후 사용하세요1",
+      errorMessage: "로그인 후 사용하세요",
     });
     return;
   }
