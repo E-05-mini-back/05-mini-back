@@ -1,0 +1,117 @@
+paths:
+  /signup:
+    post:
+      tags:
+        - user
+      description: 회원가입
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              loginId:
+                type: string
+              password:
+                type: string
+              confirm:
+                type: string
+      responses:
+        201:
+          description: 회원가입 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              message:
+                type: string
+        401:
+          description: 이미 로그인 되어있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        412:
+          description: 유효성 검사 실패 / 패스워드 불일치 / 중복된 아이디
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+
+  /login:
+    post:
+      tags:
+        - user
+      description: 로그인
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              loginId:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: 로그인 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              token:
+                type: string
+              loginId:
+                type: string
+        401:
+          description: 이미 로그인 되어있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        412:
+          description: 아이디 또는 비밀번호 틀림 / 로그인 실패
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+
+  /idCheck:
+    post:
+      tags:
+        - user
+      description: 아이디 중복 검사
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              loginId:
+                type: string
+      responses:
+        201:
+          description: 사용 가능한 아이디
+          schema:
+            properties:
+              ok:
+                type: boolean
+              message:
+                type: string
+        401:
+          description: 중복된 아이디 / 중복검사 실패
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string

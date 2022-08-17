@@ -1,0 +1,163 @@
+paths:
+  /comment/{postId}:
+    post:
+      tags:
+        - comment
+      description: 해당 게시물의 댓글 생성
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              comment:
+                type: string
+      responses:
+        201:
+          description: 해당 게시물의 댓글 생성 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              message:
+                type: string
+        401:
+          description: 로그인이 안되어 있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        400:
+          description: 해당 게시물을 찾을 수 없습니다. / 유효성 검사 실패
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+
+  /comment/{postId}/:
+    get:
+      tags:
+        - comment
+      description: 해당 게시물의 댓글 조회
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 해당 게시물의 댓글 조회 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              result:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    comment:
+                      type: string
+                    loginId:
+                      type: string
+                    date:
+                      type: string
+        400:
+          description: 해당 게시물을 찾을 수 없습니다.
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+
+  /comment/{commentId}:
+    put:
+      tags:
+        - comment
+      description: 해당 댓글 수정
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: integer
+        - in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              comment:
+                type: string
+      responses:
+        201:
+          description: 해당 댓글 수정 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              message:
+                type: string
+        401:
+          description: 로그인이 안되어 있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        400:
+          description: 해당 댓글을 찾을 수 없습니다. / 유효성 검사 실패 / 작성자가 다릅니다.
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+
+  /comment/{commentId}/:
+    delete:
+      tags:
+        - comment
+      description: 해당 댓글 삭제
+      parameters:
+        - in: path
+          name: commentId
+          required: true
+          schema:
+            type: integer
+      responses:
+        201:
+          description: 해당 댓글 삭제 성공
+          schema:
+            properties:
+              ok:
+                type: boolean
+              message:
+                type: string
+        401:
+          description: 로그인이 안되어 있음
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
+        400:
+          description: 해당 댓글을 찾을 수 없습니다. / 작성자가 다릅니다.
+          schema:
+            properties:
+              ok:
+                type: boolean
+              errorMessage:
+                type: string
