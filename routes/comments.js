@@ -54,6 +54,8 @@ router.get("/:postId", async (req, res) => {
   res.status(200).json({
     ok: true,
     result: Comment.map((Comment) => ({
+      commentId: Comment.commentId,
+      postId: Comment.postId,
       comment: Comment.comment,
       loginId: Comment.User.loginId,
       date: Comment.createdAt,
