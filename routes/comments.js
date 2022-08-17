@@ -55,7 +55,7 @@ router.get("/:postId", async (req, res) => {
     ok: true,
     result: Comment.map((Comment) => ({
       comment: Comment.comment,
-      loginId: Comment.loginId,
+      loginId: Comment.User.loginId,
       date: Comment.createdAt,
     })),
   });
@@ -67,8 +67,6 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
   const { commentId } = req.params;
   const { comment } = req.body;
   const Comment = await Comments.findOne({ where: { commentId: commentId } });
-  console.log(Comment);
-
   if (!comment) {
     res.status(400).json({
       ok: false,
