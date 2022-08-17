@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middlewares/auth_middlewares");
-const { Comments, Users, Posts } = require("../models");
+const { Comments, Users, Posts } = require("../models")
 
 // router.get("/", (req, res) => {
 //     ok : true,
@@ -10,33 +10,27 @@ const { Comments, Users, Posts } = require("../models");
 
 //댓글 작성
 router.post("/:postId", authMiddleware, async (req, res) => {
-  const { userId } = res.locals.user;
-  const { comment } = req.body;
-  const { postId } = req.params;
-  if (!userId) {
-    //이미 미들웨어에서 걸러지기는함.
-    res.status(400).json({
-      ok: false,
-      errorMessage: "로그인을 해주세요.",
-    });
-  } else if ((await Posts.findOne({ where: { postId: postId } })) == null) {
-    res.status(400).json({
-      ok: false,
-      errorMessage: "해당 게시물을 찾을 수 없습니다.’.",
-    });
-  } else if (!comment) {
-    res.status(400).json({
-      ok: false,
-      errorMessage: "댓글 내용을 입력해주세요.",
-    });
-  } else {
-    await Comments.create({ comment, postId, userId });
-    res.status(201).json({
-      ok: true,
-      message: "댓글을 생성하였습니다.",
-    });
-  }
-});
+    const { userId } = res.locals.user
+    const { comment } = req.body
+    const { postId } = req.params
+    if( await Posts.findOne({where: {postId : postId}}) == null ){
+        res.status(400).json({
+            ok: false,
+            errorMessage: "해당 게시물을 찾을 수 없습니다.’."
+        })
+    }else if (!comment) {
+        res.status(400).json({
+            ok: false,
+            errorMessage: "댓글 내용을 입력해주세요."
+        })
+    } else {
+        await Comments.create({ comment, postId, userId });
+        res.status(201).json({
+            ok: true,
+            message: "댓글을 생성하였습니다."
+        })
+    }
+})
 
 //댓글 조회
 router.get("/:postId", async (req, res) => {
