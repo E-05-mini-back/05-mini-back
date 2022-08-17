@@ -95,6 +95,7 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
 //댓글 삭제
 router.delete("/:commentId", authMiddleware, async (req, res) => {
   const { userId } = res.locals.user;
+  console.log(userId);
   const { commentId } = req.params;
   const Comment = await Comments.findOne({ where: { commentId: commentId } });
   if (Comment == null) {
