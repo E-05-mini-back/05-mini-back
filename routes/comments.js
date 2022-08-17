@@ -13,13 +13,7 @@ router.post("/:postId", authMiddleware, async (req, res) => {
   const { userId } = res.locals.user;
   const { comment } = req.body;
   const { postId } = req.params;
-  if (!userId) {
-    //이미 미들웨어에서 걸러지기는함.
-    res.status(400).json({
-      ok: false,
-      errorMessage: "로그인을 해주세요.",
-    });
-  } else if ((await Posts.findOne({ where: { postId: postId } })) == null) {
+  if ((await Posts.findOne({ where: { postId: postId } })) == null) {
     res.status(400).json({
       ok: false,
       errorMessage: "해당 게시물을 찾을 수 없습니다.’.",
