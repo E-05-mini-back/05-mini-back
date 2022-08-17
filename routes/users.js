@@ -59,7 +59,7 @@ router.post("/signup", loginmiddleware, async (req, res) => {
 
     return res
       .status(201)
-      .json({ ok: true, message: "회원 가입에 성공하였습니다." });
+      .json({ ok: true, message: "회원 가입에 성공하였습니다." , request: { loginId, password,confirm }});
   } catch (error) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
@@ -99,7 +99,7 @@ router.post("/login", loginmiddleware, async (req, res) => {
     //     expires: expires,
     // });
 
-    return res.status(200).json({ ok: true, token, loginId });
+    return res.status(200).json({ ok: true,  token, loginId , request: { loginId, password } });
   } catch (error) {
     console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
     return res.status(400).json({
@@ -128,6 +128,7 @@ router.post("/idCheck", async (req, res) => {
     res.status(201).json({
       ok: true,
       message: "사용 가능한 아이디 입니다.",
+      request: { loginId }
     });
   } catch (err) {
     res.status(400).json({
