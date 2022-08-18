@@ -65,7 +65,7 @@ http://shshinkitec.shop/api/post (임시)
 
 👉 비밀번호 암호화, swagger를 이용한 api명세 작성
 
-👉 letsencrypt을 사용해서 https 설정 
+👉 letsencrypt을 사용해서 https 설정
 
 <br>
 
@@ -81,7 +81,7 @@ http://shshinkitec.shop/api/post (임시)
 <img src="https://img.shields.io/badge/express-666666?style=flat-square&logo=express&logoColor=white"/> <img src="https://img.shields.io/badge/Node.js-33cc00?style=flat-square&logo=Node.js&logoColor=white"/>
 
 <img src="https://img.shields.io/badge/NPM-33cc00?style=flat-square&logo=NPM.js&logoColor=red"/> <img src="https://img.shields.io/badge/JSON WEB TOKEN-333333?style=flat-square&logo=json web token&logoColor=white"/> <img src="https://img.shields.io/badge/AWS-ffcc33?style=flat-square&logo=AWS&logoColor=white"/>
-<img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/> 
+<img src="https://img.shields.io/badge/github-181717?style=flat-square&logo=github&logoColor=white"/>
 
 <img src="https://img.shields.io/badge/sequelize-52B0E7?style=flat-square&logo=sequelize&logoColor=black"/><img src="https://img.shields.io/badge/swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black"/><img src="https://img.shields.io/badge/Let's Encrypt-003A70?style=flat-square&logo=Let's Encrypt&logoColor=black"/>
 
@@ -91,25 +91,19 @@ http://shshinkitec.shop/api/post (임시)
 
 # API 명세서
 
-![uml 재료 1](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2300f852-ed44-4936-ac0b-0546bcf0944a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T071658Z&X-Amz-Expires=86400&X-Amz-Signature=3a03cded3db2403ffac66bfee79b7b27606788c5a22382030a324fd0eaa77c33&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![API 명세서 1](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/61438e9a-5e97-4a2d-9f5d-c0768bce921c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220818%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220818T085732Z&X-Amz-Expires=86400&X-Amz-Signature=7197485a51a77617b67ba055192166b9f4be8c76faf3a4ccb28dff07c68b5da2&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
-![uml 재료 2](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/551c5995-8fe0-41da-bfc5-155be0f83b67/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T071839Z&X-Amz-Expires=86400&X-Amz-Signature=eab9f90124d6855e39cb7fe52ab874b9fa88dd0a028127d8cc9565471ef63e94&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![API 명세서 2](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f0143b43-6def-4cf0-b3de-23f64bc99870/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220818%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220818T085809Z&X-Amz-Expires=86400&X-Amz-Signature=11b66e8275631afe167c157426f332ef920e72a196c20c3ea69ef29c89f723be&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
-![uml 재료 3](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6a19a44d-f6b3-40a2-abdb-cef796f6239b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T071948Z&X-Amz-Expires=86400&X-Amz-Signature=dcf67ee30fbe7f580da96f7d0e4af4ac3423402be3be1073bd1de2d328504fed&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
-
-![uml 재료 4](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2fe88852-abb6-4164-a77c-8610e6a4a863/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T072410Z&X-Amz-Expires=86400&X-Amz-Signature=0ebdf03e819ec7df1307013aee763cf9667442ceb9c9bcd112a74e6e6d3a8c43&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
-
-![uml 재료 5](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/04347377-0889-4143-8040-e20f5b2dabfe/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T072445Z&X-Amz-Expires=86400&X-Amz-Signature=e356eab7f352c976cf2427b6f48bccee39da15e277d7b08050845ce29942d73c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![API 명세서 3](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/427f5f51-8e92-4088-b760-efea70e2958c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220818%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220818T085856Z&X-Amz-Expires=86400&X-Amz-Signature=d9041ea4782c36d2302db26cfd5c1e763d608b1f63cdec08f49dab66a97cb807&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 ---
 
 # ERD 및 테이블 설계
 
-![uml 재료 5](![image](https://user-images.githubusercontent.com/102647711/185353019-d75eb713-61f9-4cca-8e8d-b98f7f5f2832.png)
-)
+![ERD 1](https://user-images.githubusercontent.com/102647711/185353019-d75eb713-61f9-4cca-8e8d-b98f7f5f2832.png)
 
-
-![uml 재료 5](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/3a7fd165-b97c-4c7c-9376-f8d54b3bdc63/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220815%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220815T074329Z&X-Amz-Expires=86400&X-Amz-Signature=c62bf022230c05a50a8fbd4ef44cbd58d0c145280fb9b3f76590c2ce05313888&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+![ERD 2](https://potent-silkworm-c76.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F3a7fd165-b97c-4c7c-9376-f8d54b3bdc63%2FUntitled.png?table=block&id=dcd66e68-9a65-443d-b31c-f3ff6dd01c81&spaceId=04ba4e34-01a6-4258-86ae-e4cca440ea3d&width=2000&userId=&cache=v2)
 
 ---
 
@@ -164,6 +158,5 @@ http://shshinkitec.shop/api/post (임시)
 
 4. FE와 이미지 파일을 주고 받을때 어디에 저장할지 의논  
    => 처음에는 multer를 이용해서 서버에 저장 후 파일을 전달해 줄 생각이었지만, 서버에서 S3 서버에 파일을 저장하고, 해당 url을 서버 DB에 저장하여 필요시 url 값을 전달해주어 이미지 파일을 사용하기로 함
-   
 5. https 설정
-   => Let's Encrypt를 사용하여 무료 인증서 발급 및 저장 후 사용하여 https 
+   => Let's Encrypt를 사용하여 무료 인증서 발급 및 저장 후 사용하여 https
