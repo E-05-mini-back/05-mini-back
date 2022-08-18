@@ -45,12 +45,11 @@ router.post("/", authMiddlewares, async (req, res) => {
   try {
     const { userId } = res.locals.user;
     const { title, images, category, content } = req.body;
-    
 
     if (title === "" || images === "" || category === "" || content === "") {
       res.status(400).json({
         ok: false,
-        errorMessage: "제목, 이미지, 카테고리, 내용을 채워주세요.",
+        errorMessage: "제목, 이미지, 카테고리, 내용을 입력해주세요.",
       });
       return;
     }
@@ -72,7 +71,7 @@ router.post("/", authMiddlewares, async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      errorMessage: "생성 실패",
+      errorMessage: "게시물 생성에 실패했습니다.",
     });
     return;
   }
@@ -114,7 +113,7 @@ router.get("/:postId", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      errorMessage: "상세 게시물 조회 실패",
+      errorMessage: "상세 게시물 조회를 실패했습니다.",
     });
     return;
   }
@@ -131,7 +130,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
     if (title === "" || images === "" || category === "" || content === "") {
       res.status(400).json({
         ok: false,
-        errorMessage: "제목, 이미지, 카테고리, 내용을 채워주세요.",
+        errorMessage: "제목, 이미지, 카테고리, 내용을 입력해주세요.",
       });
       return;
     }
@@ -159,7 +158,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
         );
         res.status(200).json({
           ok: true,
-          message: "수정 성공",
+          message: "게시물을 수정했습니다.",
           request: { postId, title, images, content, category },
         });
         return;
@@ -174,7 +173,7 @@ router.put("/:postId", authMiddlewares, async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      errorMessage: "수정 실패",
+      errorMessage: "게시물 수정을 실패했습니다.",
     });
     return;
   }
@@ -202,7 +201,7 @@ router.delete("/:postId", authMiddlewares, async (req, res) => {
         await Posts.destroy({ where: { postId } });
         res.status(200).json({
           ok: true,
-          message: "삭제 성공",
+          message: "게시물을 삭제했습니다.",
         });
         return;
       } else {
@@ -216,7 +215,7 @@ router.delete("/:postId", authMiddlewares, async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      errorMessage: "삭제 실패",
+      errorMessage: "게시물 삭제를 실패했습니다.",
     });
     return;
   }
@@ -250,7 +249,7 @@ router.get("/category/:category", async (req, res) => {
   } catch (err) {
     res.status(400).json({
       ok: false,
-      errorMessage: "카테고리별 게시물 조회 실패",
+      errorMessage: "카테고리별 게시물 조회를 실패했습니다.",
     });
     return;
   }

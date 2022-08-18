@@ -1,11 +1,10 @@
 const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 
-
 module.exports = (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    console.log(authorization)
+    console.log(authorization);
     const [tokenType, tokenValue] = authorization.split(" ");
 
     if (tokenType !== "Bearer") {
@@ -17,7 +16,7 @@ module.exports = (req, res, next) => {
     }
     try {
       const { privatekey } = jwt.verify(tokenValue, process.env.secret_key);
-      console.log(privatekey)
+      console.log(privatekey);
       Users.findByPk(privatekey).then((userId) => {
         res.locals.user = userId;
         next();
@@ -32,7 +31,7 @@ module.exports = (req, res, next) => {
   } catch (error) {
     res.status(401).json({
       ok: false,
-      errorMessage: "로그인 후 사용하세요",
+      errorMessage: "로그인 후 사용 가능합니다.",
     });
     return;
   }
