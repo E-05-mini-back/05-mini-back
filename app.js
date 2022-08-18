@@ -9,6 +9,18 @@ const port = process.env.Port;
 const app = express();
 const cors = require("cors");
 
+const fs = require('fs');
+const http=require("http");
+const https=require("https");
+
+ const options = {
+  ca: fs.readFileSync('/etc/letsencrypt/live/shshinkitec.shop/fullchain.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/live/shshinkitec.shop/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/shshinkitec.shop/cert.pem')
+  };
+  
+
+
 // app.use(cors());
 app.use(
   cors({
@@ -29,6 +41,9 @@ app.get("/", (req, res) => {
 
 module.exports = app;
 
-app.listen(port, () => {
-  console.log(port, "포트로 서버가 열렸어요!");
-});
+http.createServer(app).listen(3000);
+https.createServer(options, app).listen(443);
+
+// app.listen(port, () => {
+//   console.log(port, "포트로 서버가 열렸어요!");
+// });
