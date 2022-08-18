@@ -16,7 +16,7 @@ router.post("/:postId", authMiddlewares, async (req, res) => {
     if (!detailpost) {
       return res.status(400).json({
         ok: false,
-        errorMessage: "게시글이 존재하지않습니다!",
+        errorMessage: "해당 게시물을 찾을 수 없습니다.",
       });
     } else {
       const likesaved = detailpost.likes;
@@ -25,15 +25,11 @@ router.post("/:postId", authMiddlewares, async (req, res) => {
       if (!likedpost) {
         await Posts.update({ likes: likesaved + 1 }, { where: { postId } });
         await Likes.create({ userId, postId });
-        return res
-          .status(200)
-          .json({ ok: true, message: "게시글에 좋아요 를 눌렀습니다!" });
+        return res.status(200).json({ ok: true, message: "좋아요!" });
       } else {
         await Posts.update({ likes: likesaved - 1 }, { where: { postId } });
         await Likes.destroy({ where: { userId: userId, postId: postId } });
-        return res
-          .status(200)
-          .json({ ok: true, message: "게시글의 좋아요 를 취소하였습니다!" });
+        return res.status(200).json({ ok: true, message: "좋아요 취소!" });
       }
     }
   } catch (err) {

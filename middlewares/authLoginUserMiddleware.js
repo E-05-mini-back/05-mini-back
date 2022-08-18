@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
     if (tokenType == "Bearer") {
       res.status(401).json({
         ok: false,
-        errorMessage: "이미 로그인 하셨습니다!",
+        errorMessage: "이미 로그인 상태입니다.",
       });
       return;
     }

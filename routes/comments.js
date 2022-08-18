@@ -24,11 +24,24 @@ router.post("/:postId", authMiddleware, async (req, res) => {
       errorMessage: "댓글 내용을 입력해주세요.",
     });
   } else {
-    await Comments.create({ comment, postId, userId });
+    const commentId = await Comments.create({ comment, postId, userId });
+    // 임시
+    const newComment = await Comments.findOne({
+      where: { commentId: commentId.commentId },
+      include: {
+        model: Users,
+        attributes: ["loginId"],
+      },
+    });
     res.status(201).json({
       ok: true,
       message: "댓글을 생성하였습니다.",
-      request: { postId, comment },
+      request: {
+        postId,
+        comment,
+        loginId: newComment.User.loginId,
+        date: newComment.createdAt,
+      },
     });
   }
 });
@@ -77,18 +90,18 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
   } else if (Comment == null) {
     res.status(400).json({
       ok: false,
-      errorMessage: "존재하지 않는 댓글입니다.",
+      errorMessage: "해당 댓글을 찾을 수 없습니다.",
     });
   } else if (userId !== Comment.userId) {
     res.status(400).json({
       ok: false,
-      errorMessage: "본인 댓글만 수정 가능합니다.",
+      errorMessage: "작성자가 일치 하지 않습니다.",
     });
   } else {
     Comment.update({ comment: comment });
     res.status(201).json({
       ok: true,
-      message: "댓글이 수정 되었습니다.",
+      message: "댓글을 수정했습니다.",
       request: { commentId, comment },
     });
   }
@@ -97,18 +110,17 @@ router.put("/:commentId", authMiddleware, async (req, res) => {
 //댓글 삭제
 router.delete("/:commentId", authMiddleware, async (req, res) => {
   const { userId } = res.locals.user;
-  console.log(userId);
   const { commentId } = req.params;
   const Comment = await Comments.findOne({ where: { commentId: commentId } });
   if (Comment == null) {
     res.status(400).json({
       ok: false,
-      errorMessage: "존재하지 않는 댓글입니다.",
+      errorMessage: "해당 댓글을 찾을 수 없습니다.",
     });
   } else if (userId !== Comment.userId) {
     res.status(400).json({
       ok: false,
-      errorMessage: "본인 댓글만 삭제 가능합니다.",
+      errorMessage: "작성자가 일치 하지 않습니다.",
     });
   } else {
     await Comment.destroy();
